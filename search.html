@@ -1,0 +1,53 @@
+---
+layout: default
+title: "Kuarks"
+description: "Búsqueda"
+cover: https://download.zoho.com/docs/prv/3oxe007e5df2fa827476aa991df3fd372b6b5?_t=1501975561063
+---
+
+<div id="app" class="col">
+	
+	<div class="row">
+		{% include item.html %}
+	</div>
+	
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+
+<script>
+	var client = algoliasearch('0XA0FGVNR8', 'dd5c3d1677b55989f9c88d9ec526d012');
+	var index = client.initIndex('Kuarks');
+
+	var app = document.getElementById('search');
+	var url_string = window.location.href;
+	var url = new URL(url_string);
+	var query = url.searchParams.get("q");
+	
+	index.search(query, {
+		attributesToRetrieve: ['title', 'description', 'fecha', 'url', 'cover'],
+		hitsPerPage: 50
+	}, function searchDone(err, content) {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		
+		var app = new Vue({
+
+			el: '#app',
+
+			data:{
+				posts: []
+			},
+
+			mounted(){
+				this.posts = content.hits;
+			}
+		});
+
+	});
+	
+</script>
