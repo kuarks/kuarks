@@ -14,7 +14,11 @@
 
                 <header class="entry-header">
                         
-                    <h2 class="entry-title card-title">{{ post.title }}</h2>
+                    <h2 class="entry-title card-title">
+                        <a href="{{ site.baseurl }}{{ post.url }}">
+                            {{ post.title }}
+                        </a>
+                    </h2>
                     <div class="entry-meta">
                         <span class="posted-on meta-span"><i class="fa fa-calendar-check-o"></i><time class="entry-date published" datetime="2017-04-30T19:01:45+00:00">{{ post.fecha }}</time></span>
                     </div>
